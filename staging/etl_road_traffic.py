@@ -41,3 +41,11 @@ extract_data_from_csv = BashOperator(
     bash_command="cut -d',' -f1-4 /home/sabingoyek/airflow/dags/etl-road-traffic/vehicle-data.csv > /home/sabingoyek/airflow/dags/etl-road-traffic/csv_data.csv",
     dag=dag
 )
+
+# Task 1.5 - Create a task to extract data from tsv file
+
+extract_data_from_tsv = BashOperator(
+    task_id="extract-data-from-tsv",
+    bash_command="cut -d$'\t' -f5-7 /home/sabingoyek/airflow/dags/etl-road-traffic/tollplaza-data.tsv | tr '\t' ',' > /home/project/airflow/dags/etl-road-traffic/tsv_data.csv",
+    dag=dag
+)
