@@ -46,6 +46,14 @@ extract_data_from_csv = BashOperator(
 
 extract_data_from_tsv = BashOperator(
     task_id="extract-data-from-tsv",
-    bash_command="cut -d$'\t' -f5-7 /home/sabingoyek/airflow/dags/etl-road-traffic/tollplaza-data.tsv | tr '\t' ',' > /home/project/airflow/dags/etl-road-traffic/tsv_data.csv",
+    bash_command="cut -d$'\t' -f5-7 /home/sabingoyek/airflow/dags/etl-road-traffic/tollplaza-data.tsv | tr '\t' ',' > /home/sabingoyek/airflow/dags/etl-road-traffic/tsv_data.csv",
+    dag=dag
+)
+
+# Task 1.6 - Create a task to extract data from fixed width file
+# extract last two field
+extract_data_from_fixed_width = BashOperator(
+    task_id="extract-data-fixed_width",
+    bash_command="cat /home/sabingoyek/airflow/dags/etl-road-traffic/payment-data.txt | tr -s '[:space:]' | rev | cut -d' ' -f1,2 | rev | tr ' ' ',' > /home/sabingoyek/airflow/dags/etl-road-traffic/fixed_width_data.csv",
     dag=dag
 )
