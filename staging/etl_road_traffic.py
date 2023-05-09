@@ -5,7 +5,7 @@ from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from airflow.utils.dates import days_ago
 
-# define DAG parameters
+# Task 1.1 - Define DAG arguments
 
 default_args = {
     'owner': "Kimba SABI N'GOYE",
@@ -16,3 +16,13 @@ default_args = {
     'retries': 1,
     'retry_delay': timedelta(minutes=5)
 }
+
+# Task 1.2 - Define the DAG
+
+dag = DAG(
+    dag_id="ETL_toll_data",
+    schedule_interval=timedelta(days=1),
+    default_args=default_args,
+    description="Apache Airflow Final Assignment"
+)
+
