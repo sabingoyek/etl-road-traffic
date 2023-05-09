@@ -29,7 +29,7 @@ dag = DAG(
 # Task 1.3 - Create a task to unzip data
 
 unzip_data = BashOperator(
-    task_id="unzip data",
+    task_id="unzip-data",
     bash_command="tar -xvzf /home/sabingoyek/airflow/dags/etl-road-traffic/tolldata.tgz -C /home/sabingoyek/airflow/dags/etl-road-traffic/",
     dag=dag
 )
@@ -77,4 +77,4 @@ transform_data = BashOperator(
 
 # Task 1.9 - Define the task pipeline
 
-unzip_data > extract_data_from_csv > extract_data_from_tsv > extract_data_from_fixed_width > consolidate_data > transform_data
+unzip_data >> extract_data_from_csv >> extract_data_from_tsv >> extract_data_from_fixed_width >> consolidate_data >> transform_data
