@@ -67,3 +67,10 @@ consolidate_data = BashOperator(
     dag=dag
 )
 
+# Task 1.8 - Transform and load the data
+
+transform_data = BashOperator(
+    task_id="transform-data",
+    bash_command="tr '[a-z]' '[A-Z]'",
+    dag=dag
+)
