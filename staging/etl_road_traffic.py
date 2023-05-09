@@ -34,3 +34,10 @@ unzip_data = BashOperator(
     dag=dag
 )
 
+# Task 1.4 - Create a task to extract data from csv file
+
+extract_data_from_csv = BashOperator(
+    task_id="extract-data-from-csv",
+    bash_command="cut -d',' -f1-4 /home/sabingoyek/airflow/dags/etl-road-traffic/vehicle-data.csv > /home/sabingoyek/airflow/dags/etl-road-traffic/csv_data.csv",
+    dag=dag
+)
