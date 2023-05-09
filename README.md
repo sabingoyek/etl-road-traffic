@@ -1,4 +1,4 @@
-# etl-road-traffic
+# Road Traffic ETL Pipeline
 Analyzing the road traffic data from different toll plazas.
 
 ## Scenario
