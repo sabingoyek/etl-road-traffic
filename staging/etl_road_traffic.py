@@ -74,3 +74,7 @@ transform_data = BashOperator(
     bash_command="tr '[a-z]' '[A-Z]'",
     dag=dag
 )
+
+# Task 1.9 - Define the task pipeline
+
+unzip_data > extract_data_from_csv > extract_data_from_tsv > extract_data_from_fixed_width > consolidate_data > transform_data
