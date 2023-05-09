@@ -26,3 +26,11 @@ dag = DAG(
     description="Apache Airflow Final Assignment"
 )
 
+# Task 1.3 - Create a task to unzip data
+
+unzip_data = BashOperator(
+    task_id="unzip data",
+    bash_command="tar -xvzf /home/sabingoyek/airflow/dags/etl-road-traffic/tolldata.tgz -C /home/sabingoyek/airflow/dags/etl-road-traffic/",
+    dag=dag
+)
+
