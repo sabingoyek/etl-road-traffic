@@ -63,7 +63,7 @@ extract_data_from_fixed_width = BashOperator(
 
 consolidate_data = BashOperator(
     task_id="consolidate-data",
-    bash_command="paste -d',' /home/sabingoyek/airflow/dags/etl-road-traffic/csv_data.csv /home/sabingoyek/airflow/dags/etl-road-traffic/tsv_data.csv /home/sabingoyek/airflow/dags/etl-road-traffic/fixed_width_data.csv > extracted_data.csv",
+    bash_command="paste -d',' /home/sabingoyek/airflow/dags/etl-road-traffic/csv_data.csv /home/sabingoyek/airflow/dags/etl-road-traffic/tsv_data.csv /home/sabingoyek/airflow/dags/etl-road-traffic/fixed_width_data.csv > /home/sabingoyek/airflow/dags/etl-road-traffic/extracted_data.csv",
     dag=dag
 )
 
@@ -71,7 +71,7 @@ consolidate_data = BashOperator(
 
 transform_data = BashOperator(
     task_id="transform-data",
-    bash_command="tr '[a-z]' '[A-Z]'",
+    bash_command="paste -d',' <(cut -d',' -f1-3 /home/sabingoyek/airflow/dags/etl-road-traffic/extracted_data.csv)  <(cut -d',' -f4 /home/sabingoyek/airflow/dags/etl-road-traffic/extracted_data.csv | tr '[:lower:]' '[:upper:]') <(cut -d',' -f5- /home/sabingoyek/airflow/dags/etl-road-traffic/extracted_data.csv) > /home/sabingoyek/airflow/dags/etl-road-traffic/transformed_data.csv",
     dag=dag
 )
 
