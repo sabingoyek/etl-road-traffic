@@ -30,7 +30,7 @@ dag = DAG(
 
 unzip_data = BashOperator(
     task_id="unzip-data",
-    bash_command="tar -xvzf /home/sabingoyek/airflow/dags/etl-road-traffic/tolldata.tgz -C /home/sabingoyek/airflow/dags/etl-road-traffic/",
+    bash_command="tar -xvzf /home/sabingoyek/airflow/dags/tolldata.tgz -C /home/sabingoyek/airflow/dags/",
     dag=dag
 )
 
@@ -38,7 +38,7 @@ unzip_data = BashOperator(
 
 extract_data_from_csv = BashOperator(
     task_id="extract-data-from-csv",
-    bash_command="cut -d',' -f1-4 /home/sabingoyek/airflow/dags/etl-road-traffic/vehicle-data.csv > /home/sabingoyek/airflow/dags/etl-road-traffic/csv_data.csv",
+    bash_command="cut -d',' -f1-4 /home/sabingoyek/airflow/dags/vehicle-data.csv > /home/sabingoyek/airflow/dags/csv_data.csv",
     dag=dag
 )
 
@@ -46,7 +46,7 @@ extract_data_from_csv = BashOperator(
 
 extract_data_from_tsv = BashOperator(
     task_id="extract-data-from-tsv",
-    bash_command="cut -d$'\t' -f5-7 /home/sabingoyek/airflow/dags/etl-road-traffic/tollplaza-data.tsv | tr '\t' ',' > /home/sabingoyek/airflow/dags/etl-road-traffic/tsv_data.csv",
+    bash_command="cut -d$'\t' -f5-7 /home/sabingoyek/airflow/dags/tollplaza-data.tsv | tr '\t' ',' > /home/sabingoyek/airflow/dags/tsv_data.csv",
     dag=dag
 )
 
@@ -55,7 +55,7 @@ extract_data_from_tsv = BashOperator(
 
 extract_data_from_fixed_width = BashOperator(
     task_id="extract-data-fixed_width",
-    bash_command="cat /home/sabingoyek/airflow/dags/etl-road-traffic/payment-data.txt | tr -s '[:space:]' | rev | cut -d' ' -f1,2 | rev | tr ' ' ',' > /home/sabingoyek/airflow/dags/etl-road-traffic/fixed_width_data.csv",
+    bash_command="cat /home/sabingoyek/airflow/dags/payment-data.txt | tr -s '[:space:]' | rev | cut -d' ' -f1,2 | rev | tr ' ' ',' > /home/sabingoyek/airflow/dags/fixed_width_data.csv",
     dag=dag
 )
 
@@ -63,7 +63,7 @@ extract_data_from_fixed_width = BashOperator(
 
 consolidate_data = BashOperator(
     task_id="consolidate-data",
-    bash_command="paste -d',' /home/sabingoyek/airflow/dags/etl-road-traffic/csv_data.csv /home/sabingoyek/airflow/dags/etl-road-traffic/tsv_data.csv /home/sabingoyek/airflow/dags/etl-road-traffic/fixed_width_data.csv > /home/sabingoyek/airflow/dags/etl-road-traffic/extracted_data.csv",
+    bash_command="paste -d',' /home/sabingoyek/airflow/dags/csv_data.csv /home/sabingoyek/airflow/dags/tsv_data.csv /home/sabingoyek/airflow/dags/fixed_width_data.csv > /home/sabingoyek/airflow/dags/extracted_data.csv",
     dag=dag
 )
 
@@ -71,7 +71,7 @@ consolidate_data = BashOperator(
 
 transform_data = BashOperator(
     task_id="transform-data",
-    bash_command="paste -d',' <(cut -d',' -f1-3 /home/sabingoyek/airflow/dags/etl-road-traffic/extracted_data.csv)  <(cut -d',' -f4 /home/sabingoyek/airflow/dags/etl-road-traffic/extracted_data.csv | tr '[:lower:]' '[:upper:]') <(cut -d',' -f5- /home/sabingoyek/airflow/dags/etl-road-traffic/extracted_data.csv) > /home/sabingoyek/airflow/dags/etl-road-traffic/transformed_data.csv",
+    bash_command="paste -d',' <(cut -d',' -f1-3 /home/sabingoyek/airflow/dags/extracted_data.csv)  <(cut -d',' -f4 /home/sabingoyek/airflow/dags/extracted_data.csv | tr '[:lower:]' '[:upper:]') <(cut -d',' -f5- /home/sabingoyek/airflow/dags/extracted_data.csv) > /home/sabingoyek/airflow/dags/transformed_data.csv",
     dag=dag
 )
 
